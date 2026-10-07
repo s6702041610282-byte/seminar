@@ -1,3 +1,5 @@
+import { LEVEL_TEXT } from '../../utils/riskExplain';
+import { RiskSummaryCard } from '../../components/common/RiskPanel';
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -49,20 +51,20 @@ const StudentDetail: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6 animate-fadeIn">
       <button 
         onClick={() => navigate('/instructor/students')}
-        className="flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors"
+        className="flex items-center text-sm text-gray-500 hover:text-brand-600 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 mr-1" /> กลับไปหน้ารายชื่อนักศึกษา
       </button>
 
       {/* Profile Card */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col md:flex-row gap-6">
-        <div className="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6 flex flex-col md:flex-row gap-6">
+        <div className="w-24 h-24 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center flex-shrink-0">
           <User className="w-12 h-12" />
         </div>
         <div className="flex-1">
           <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{student.name}</h1>
+              <h1 className="text-2xl font-bold text-brand-950 tracking-tight">{student.name}</h1>
               <div className="flex items-center text-sm text-gray-500 mt-1 gap-4">
                 <span>รหัส: {student.studentId}</span>
                 <span>กลุ่ม: {student.group}</span>
@@ -85,8 +87,8 @@ const StudentDetail: React.FC = () => {
               }`}>
                 <AlertTriangle className="w-5 h-5" />
                 <div className="flex flex-col">
-                  <span className="text-xs font-medium opacity-80">Risk Level</span>
-                  <span className="font-bold uppercase">{riskData.finalLevel} ({riskData.totalScore}%)</span>
+                  <span className="text-xs font-medium opacity-80">ระดับความเสี่ยง</span>
+                  <span className="font-bold">{LEVEL_TEXT[riskData.finalLevel as 'low' | 'medium' | 'high'].title} · {Number(riskData.totalScore).toFixed(1)}/100</span>
                 </div>
               </div>
             </div>
@@ -102,7 +104,7 @@ const StudentDetail: React.FC = () => {
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center whitespace-nowrap px-6 py-3 border-b-2 text-sm font-medium transition-colors ${
               activeTab === tab.id
-                ? 'border-blue-600 text-blue-600 bg-blue-50/50 rounded-t-lg'
+                ? 'border-brand-600 text-brand-600 bg-brand-50/50 rounded-t-lg'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -119,9 +121,9 @@ const StudentDetail: React.FC = () => {
           <div className="space-y-6 animate-fadeIn">
             <h2 className="text-lg font-bold text-gray-800">ภาพรวมความก้าวหน้า</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-               <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
-                 <p className="text-sm text-blue-600 font-medium">ความคืบหน้าโครงงาน</p>
-                 <p className="text-3xl font-bold text-blue-700 mt-1">{project?.progress || 0}%</p>
+               <div className="p-4 bg-brand-50 rounded-lg border border-brand-100">
+                 <p className="text-sm text-brand-600 font-medium">ความคืบหน้าโครงงาน</p>
+                 <p className="text-3xl font-bold text-brand-700 mt-1">{project?.progress || 0}%</p>
                </div>
                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-100">
                  <p className="text-sm text-emerald-600 font-medium">ส่งรายงาน Weekly</p>
@@ -137,7 +139,7 @@ const StudentDetail: React.FC = () => {
             <div className="mt-6 border-t border-gray-100 pt-6">
                <h3 className="text-md font-bold text-gray-800 mb-4">สถานะปัจจุบัน</h3>
                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                 <p className="text-gray-700">กำลังอยู่ในขั้นตอน: <span className="font-bold text-blue-600">ดำเนินโครงงาน (In Progress)</span></p>
+                 <p className="text-gray-700">กำลังอยู่ในขั้นตอน: <span className="font-bold text-brand-600">ดำเนินโครงงาน (In Progress)</span></p>
                </div>
             </div>
           </div>
@@ -149,7 +151,7 @@ const StudentDetail: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
+                  <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                     <th className="p-3 font-medium">สัปดาห์ที่</th>
                     <th className="p-3 font-medium">คะแนน (%)</th>
                     <th className="p-3 font-medium">สถานะการส่ง</th>
@@ -164,7 +166,7 @@ const StudentDetail: React.FC = () => {
                     const statusText = score.submissionStatus === 'on_time' ? 'ตรงเวลา' : 
                                       score.submissionStatus === 'late' ? 'ล่าช้า' : 'ยังไม่ส่ง';
                     return (
-                      <tr key={score.week} className="border-b border-gray-100 hover:bg-gray-50">
+                      <tr key={score.week} className="border-b border-gray-100 hover:bg-brand-50/50">
                         <td className="p-3 text-sm font-medium">สัปดาห์ที่ {score.week}</td>
                         <td className="p-3 text-sm font-bold text-gray-800">{score.percentage}%</td>
                         <td className="p-3 text-sm">
@@ -205,7 +207,7 @@ const StudentDetail: React.FC = () => {
                         <div className="flex justify-between"><span className="text-gray-600">การตอบคำถาม (Q&A)</span><span className="font-medium">{p.rubric.qa}/5</span></div>
                       </div>
                       {p.feedback && (
-                        <div className="mt-4 p-3 bg-blue-50 text-blue-800 text-sm rounded-lg border border-blue-100">
+                        <div className="mt-4 p-3 bg-brand-50 text-brand-800 text-sm rounded-lg border border-brand-100">
                           <span className="font-bold">ข้อเสนอแนะ:</span> {p.feedback}
                         </div>
                       )}
@@ -220,47 +222,7 @@ const StudentDetail: React.FC = () => {
         )}
 
         {activeTab === 'risk' && (
-          <div className="animate-fadeIn">
-            <h2 className="text-lg font-bold text-gray-800 mb-6">วิเคราะห์ความเสี่ยง (Risk Score)</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="flex flex-col items-center justify-center p-8 bg-gray-50 rounded-2xl border border-gray-100">
-                <div className={`w-32 h-32 rounded-full flex items-center justify-center mb-4 border-8 ${
-                  riskData.finalLevel === 'high' ? 'border-red-500 text-red-600 bg-red-50' :
-                  riskData.finalLevel === 'medium' ? 'border-orange-500 text-orange-600 bg-orange-50' :
-                  'border-green-500 text-green-600 bg-green-50'
-                }`}>
-                  <span className="text-4xl font-bold">{riskData.totalScore}%</span>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900">ระดับความเสี่ยง: <span className="uppercase">{riskData.finalLevel}</span></h3>
-                <p className="text-center text-gray-600 mt-2">{riskData.recommendation}</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-4">องค์ประกอบความเสี่ยง</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1"><span className="text-gray-600">คะแนนรายสัปดาห์</span><span className="font-medium">{riskData.breakdown.weeklyScore}%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-2"><div className="bg-blue-500 h-2 rounded-full" style={{width: `${riskData.breakdown.weeklyScore}%`}}></div></div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1"><span className="text-gray-600">คะแนนการนำเสนอ</span><span className="font-medium">{riskData.breakdown.presentationScore}%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-2"><div className="bg-purple-500 h-2 rounded-full" style={{width: `${riskData.breakdown.presentationScore}%`}}></div></div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1"><span className="text-gray-600">การส่งงาน</span><span className="font-medium">{riskData.breakdown.submissionScore}%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-2"><div className="bg-emerald-500 h-2 rounded-full" style={{width: `${riskData.breakdown.submissionScore}%`}}></div></div>
-                  </div>
-                </div>
-                {riskData.appliedRules.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="font-bold text-gray-800 mb-2">เงื่อนไขความเสี่ยงที่พบ</h3>
-                    <ul className="list-disc pl-5 text-sm text-red-600 space-y-1">
-                      {riskData.appliedRules.map((rule, idx) => <li key={idx}>{rule}</li>)}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <RiskSummaryCard studentId={id} audience="instructor" defaultOpen />
         )}
 
         {activeTab === 'docs' && (
@@ -269,7 +231,7 @@ const StudentDetail: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
+                  <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                     <th className="p-3 font-medium">ชื่อไฟล์</th>
                     <th className="p-3 font-medium">ประเภท</th>
                     <th className="p-3 font-medium">วันที่ส่ง</th>
@@ -279,8 +241,8 @@ const StudentDetail: React.FC = () => {
                 </thead>
                 <tbody>
                   {docs.map(doc => (
-                    <tr key={doc.id} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="p-3 text-sm font-medium text-blue-600">{doc.name}</td>
+                    <tr key={doc.id} className="border-b border-gray-100 hover:bg-brand-50/50">
+                      <td className="p-3 text-sm font-medium text-brand-600">{doc.name}</td>
                       <td className="p-3 text-sm text-gray-600">{doc.type}</td>
                       <td className="p-3 text-sm text-gray-600">{doc.date}</td>
                       <td className="p-3 text-sm">
@@ -291,7 +253,7 @@ const StudentDetail: React.FC = () => {
                         )}
                       </td>
                       <td className="p-3 text-center">
-                        <button className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"><Download className="w-4 h-4"/></button>
+                        <button className="p-1.5 text-gray-500 hover:text-brand-600 hover:bg-brand-50 rounded transition-colors"><Download className="w-4 h-4"/></button>
                       </td>
                     </tr>
                   ))}
@@ -306,10 +268,10 @@ const StudentDetail: React.FC = () => {
             <h2 className="text-lg font-bold text-gray-800 mb-4">ประวัติ Feedback</h2>
             <div className="space-y-4">
               {feedbacks.map(fb => (
-                <div key={fb.id} className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                <div key={fb.id} className="p-4 border border-gray-200 rounded-xl hover:bg-brand-50/50 transition-colors">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded">{fb.type}</span>
+                      <span className="px-2 py-1 bg-brand-100 text-brand-700 text-xs font-bold rounded">{fb.type}</span>
                       <span className="text-sm text-gray-500 font-medium">{fb.author}</span>
                     </div>
                     <span className="text-xs text-gray-400">{fb.date}</span>

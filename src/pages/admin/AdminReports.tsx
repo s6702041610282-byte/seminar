@@ -2,9 +2,9 @@ import React from 'react';
 import { FileText, Download, Printer, FileSpreadsheet, PieChart, Users, TrendingDown } from 'lucide-react';
 
 const ReportCard: React.FC<{ title: string; description: string; icon: React.ReactNode }> = ({ title, description, icon }) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
+  <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6 flex flex-col h-full">
     <div className="flex items-start mb-4 gap-4">
-      <div className="p-3 rounded-lg bg-blue-50 text-[#063B78]">
+      <div className="p-3 rounded-lg bg-brand-50 text-brand-700">
         {icon}
       </div>
       <div>
@@ -57,10 +57,10 @@ const AdminReports: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
-      <div className="flex justify-between items-end">
+      <div className="page-hero flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-[#063B78]">รายงานและสถิติ (สำหรับผู้ดูแลระบบ)</h1>
-          <p className="text-gray-500 mt-1">ออกรายงานภาพรวมทั้งหมดเพื่อการบริหารจัดการ</p>
+          <h1 className="page-hero-title">รายงานและสถิติ (สำหรับผู้ดูแลระบบ)</h1>
+          <p className="page-hero-sub">ออกรายงานภาพรวมทั้งหมดเพื่อการบริหารจัดการ</p>
         </div>
       </div>
 

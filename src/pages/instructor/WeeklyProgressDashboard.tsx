@@ -18,7 +18,7 @@ import { X } from 'lucide-react';
 const SummaryCard = ({ icon: Icon, title, value, subtitle, color, onClick }: any) => (
   <div 
     onClick={onClick}
-    className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${onClick ? 'cursor-pointer hover:shadow-md transition-all hover:-translate-y-1' : ''}`}
+    className={`bg-white rounded-2xl shadow-card border border-slate-200/70 p-6 ${onClick ? 'cursor-pointer transition-all hover:-translate-y-1' : ''}`}
   >
     <div className="flex items-center gap-4">
       <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
@@ -42,7 +42,7 @@ const TrendBadge = ({ trend }: { trend: string }) => {
 const ScoreLevelBadge = ({ level }: { level: string }) => {
   const colors: Record<string, string> = {
     'ดีมาก': 'bg-green-100 text-green-700',
-    'ดี': 'bg-blue-100 text-blue-700',
+    'ดี': 'bg-brand-100 text-brand-700',
     'ควรปรับปรุง': 'bg-orange-100 text-orange-700',
     'ต้องติดตาม': 'bg-red-100 text-red-700'
   };
@@ -125,13 +125,13 @@ export default function WeeklyProgressDashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Weekly Progress Dashboard</h1>
-        <p className="text-gray-500">ติดตามความก้าวหน้ารายสัปดาห์</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">Weekly Progress Dashboard</h1>
+        <p className="page-hero-sub">ติดตามความก้าวหน้ารายสัปดาห์</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-        <SummaryCard icon={Users} title="นักศึกษาทั้งหมด" value={summary.totalStudents} color="bg-blue-600" />
+        <SummaryCard icon={Users} title="นักศึกษาทั้งหมด" value={summary.totalStudents} color="bg-brand-600" />
         <SummaryCard icon={CheckCircle} title="ส่งงานตรงเวลา" value={summary.onTime} subtitle={`${summary.onTimePercentage}%`} color="bg-green-600" />
         <SummaryCard 
           icon={Clock} 
@@ -155,21 +155,21 @@ export default function WeeklyProgressDashboard() {
             data: tableData.filter(d => d.missing > 0).sort((a,b) => b.missing - a.missing) 
           })}
         />
-        <SummaryCard icon={TrendingUp} title="คะแนนเฉลี่ยสัปดาห์ล่าสุด" value={`${summary.averageScore}%`} color="bg-blue-500" />
+        <SummaryCard icon={TrendingUp} title="คะแนนเฉลี่ยสัปดาห์ล่าสุด" value={`${summary.averageScore}%`} color="bg-brand-500" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">แนวโน้มคะแนนเฉลี่ยรายสัปดาห์</h2>
           <div className="h-64">
             <LineChartComponent 
               data={weeklyAverageData} 
               xKey="week"
-              lines={[{ key: 'average', name: 'คะแนนเฉลี่ย', color: '#3B82F6' }]} 
+              lines={[{ key: 'average', name: 'คะแนนเฉลี่ย', color: 'var(--brand-500)' }]} 
             />
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">ความก้าวหน้าการส่งงานรายสัปดาห์</h2>
           <div className="h-64">
             <BarChartComponent 
@@ -187,7 +187,7 @@ export default function WeeklyProgressDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">สัดส่วนระดับคะแนนเฉลี่ย</h2>
           <div className="h-64">
             <DonutChart data={scoreLevelData} />
@@ -195,7 +195,7 @@ export default function WeeklyProgressDashboard() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-lg font-semibold text-gray-800">รายการความก้าวหน้านักศึกษา</h2>
           <div className="relative">
@@ -204,7 +204,7 @@ export default function WeeklyProgressDashboard() {
               placeholder="ค้นหารหัสนักศึกษา, ชื่อ..." 
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500 w-full sm:w-64"
+              className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500 w-full sm:w-64"
             />
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
           </div>
@@ -213,7 +213,7 @@ export default function WeeklyProgressDashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-max">
             <thead>
-              <tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-100">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium">ลำดับ</th>
                 <th className="p-4 font-medium">รหัสนักศึกษา</th>
                 <th className="p-4 font-medium">ชื่อ-สกุล</th>
@@ -229,7 +229,7 @@ export default function WeeklyProgressDashboard() {
             </thead>
             <tbody>
               {currentData.length > 0 ? currentData.map((item, index) => (
-                <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <tr key={item.id} className="border-b border-gray-50 hover:bg-brand-50/50 transition-colors">
                   <td className="p-4 text-sm text-gray-600">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td className="p-4 text-sm font-medium text-gray-800">{item.studentId}</td>
                   <td className="p-4 text-sm text-gray-600">{item.studentName}</td>
@@ -247,7 +247,7 @@ export default function WeeklyProgressDashboard() {
                   <td className="p-4 text-center">
                     <button 
                       onClick={() => navigate(`/instructor/students/${item.id}`)}
-                      className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                     >
                       <Eye className="w-5 h-5" />
                     </button>
@@ -273,7 +273,7 @@ export default function WeeklyProgressDashboard() {
               <button 
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-brand-50/50"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -283,7 +283,7 @@ export default function WeeklyProgressDashboard() {
               <button 
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-brand-50/50"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -294,7 +294,7 @@ export default function WeeklyProgressDashboard() {
 
       {/* List Modal */}
       {showListModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 rounded-t-xl">
               <h2 className="text-xl font-bold text-gray-900">{showListModal.title}</h2>
@@ -304,7 +304,7 @@ export default function WeeklyProgressDashboard() {
             <div className="flex-1 overflow-y-auto p-6">
               <div className="space-y-4">
                 {showListModal.data.length > 0 ? showListModal.data.map(student => (
-                  <div key={student.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-gray-50">
+                  <div key={student.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-brand-50/50">
                     <div>
                       <h3 className="font-bold text-gray-900">{student.studentName}</h3>
                       <p className="text-sm text-gray-500">{student.studentId}</p>
@@ -317,7 +317,7 @@ export default function WeeklyProgressDashboard() {
                       )}
                       <button 
                         onClick={() => navigate(`/instructor/students/${student.id}`)}
-                        className="text-blue-600 hover:underline text-sm font-medium"
+                        className="text-brand-600 hover:underline text-sm font-medium"
                       >
                         ดูข้อมูล
                       </button>

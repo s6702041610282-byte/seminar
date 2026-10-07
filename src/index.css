@@ -6,6 +6,73 @@
   --color-navy-dark: #032A57;
   --color-forest: #065F46;
   --color-emerald: #059669;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.05);
+  --shadow-card-hover: 0 1px 3px rgb(15 23 42 / 0.08);
+}
+
+/* ---------------------------------------------------------------
+   Role-based brand colors
+   ใช้คลาส bg-brand-*, text-brand-*, border-brand-* ฯลฯ
+   สีจะเปลี่ยนตามผู้ใช้ผ่าน data-role บน Layout
+   - admin       : ม่วง (Violet)
+   - instructor  : น้ำเงิน (Royal Blue)
+   - student     : เขียวอมฟ้า (Teal)
+---------------------------------------------------------------- */
+@theme inline {
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+}
+
+:root,
+[data-role="instructor"] {
+  --brand-50: #EFF5FF;
+  --brand-100: #DBE8FE;
+  --brand-200: #BFD6FE;
+  --brand-300: #93BBFD;
+  --brand-400: #6098FA;
+  --brand-500: #3B76F6;
+  --brand-600: #2557EB;
+  --brand-700: #1D43D8;
+  --brand-800: #1E38AF;
+  --brand-900: #1E348A;
+  --brand-950: #172154;
+}
+
+[data-role="admin"] {
+  --brand-50: #F6F3FF;
+  --brand-100: #EDE8FE;
+  --brand-200: #DDD5FE;
+  --brand-300: #C4B4FD;
+  --brand-400: #A688FA;
+  --brand-500: #8B5CF6;
+  --brand-600: #7A3EEA;
+  --brand-700: #6A2DD3;
+  --brand-800: #5823B0;
+  --brand-900: #4A1F8F;
+  --brand-950: #2D1162;
+}
+
+[data-role="student"] {
+  --brand-50: #EFFCF9;
+  --brand-100: #CDF7EE;
+  --brand-200: #9BEEDD;
+  --brand-300: #61DDC8;
+  --brand-400: #2FC4AF;
+  --brand-500: #14A897;
+  --brand-600: #0C877B;
+  --brand-700: #0E6C64;
+  --brand-800: #105651;
+  --brand-900: #124844;
+  --brand-950: #042B29;
 }
 
 body {
@@ -14,18 +81,125 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* App background: flat neutral */
+.app-bg {
+  background: #F4F5F8;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  background: color-mix(in oklab, var(--brand-300) 55%, #cbd5e1);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--brand-400);
+  background-clip: padding-box;
+}
+
+::selection {
+  background: var(--brand-200);
+  color: var(--brand-950);
+}
+
+/* ---------------------------------------------------------------
+   Page header: ซ่อนชื่อหน้า (ซ้ำกับเมนูด้านซ้าย)
+   เหลือไว้เฉพาะปุ่มคำสั่งของหน้านั้น ชิดขวา
+---------------------------------------------------------------- */
+.page-hero {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+}
+.page-hero-title,
+.page-hero-sub,
+.page-hero-icon {
+  display: none;
+}
+/* หน้าที่ไม่มีปุ่มในส่วนหัว: ซ่อนทั้งแถว */
+.page-hero:not(:has(button, a, select, input)) {
+  display: none;
+}
+
+/* ปุ่มคำสั่งของหน้า (ชิดขวา, สีเรียบ) */
+.page-hero:has(button, a, select, input) {
+  flex-wrap: wrap;
+}
+.page-hero > div:not(:has(button, a, select, input)) {
+  display: none;
+}
+.page-hero > div:has(button, a, select, input) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ปุ่มรอง */
+.page-hero button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #334155;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.page-hero button:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+  text-decoration: none;
+}
+.page-hero button:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+.page-hero button svg {
+  margin: 0;
+}
+
+/* ปุ่มหลัก */
+.page-hero button[class*=" bg-brand-6"],
+.page-hero button[class*=" bg-brand-7"] {
+  color: #FFFFFF;
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.page-hero button[class*=" bg-brand-6"]:hover,
+.page-hero button[class*=" bg-brand-7"]:hover {
+  color: #FFFFFF;
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+}
+
+/* ปุ่มสถานะเปิดอยู่ (เช่น โหมดแก้ไข) */
+.page-hero button[class*="bg-amber"] {
+  color: #92400E;
+  background: #FFFBEB;
+  border-color: #F59E0B;
+}
+.page-hero button[class*="bg-amber"]:hover {
+  background: #FEF3C7;
+}
+
+/* Table header refinement */
+main thead th {
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }

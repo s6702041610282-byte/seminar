@@ -26,7 +26,7 @@ export const Stepper: React.FC<StepperProps> = ({
   const getStatusColor = (status: StepStatus) => {
     switch (status) {
       case 'completed': return 'bg-green-500 text-white border-green-500';
-      case 'in_progress': return 'bg-blue-600 text-white border-blue-600 ring-4 ring-blue-100';
+      case 'in_progress': return 'bg-brand-600 text-white border-brand-600 ring-4 ring-brand-100';
       case 'rejected': return 'bg-red-500 text-white border-red-500';
       case 'pending': default: return 'bg-white text-gray-400 border-gray-300';
     }
@@ -59,7 +59,7 @@ export const Stepper: React.FC<StepperProps> = ({
                 <p className={`font-bold text-sm ${status === 'pending' ? 'text-gray-500' : 'text-gray-800'}`}>
                   {step}
                 </p>
-                {status === 'in_progress' && <p className="text-xs font-medium text-blue-600 mt-1">กำลังดำเนินการ</p>}
+                {status === 'in_progress' && <p className="text-xs font-medium text-brand-600 mt-1">กำลังดำเนินการ</p>}
                 {status === 'rejected' && <p className="text-xs font-medium text-red-500 mt-1">ต้องแก้ไข</p>}
                 {status === 'completed' && <p className="text-xs font-medium text-green-600 mt-1">เสร็จสิ้น</p>}
               </div>
@@ -86,7 +86,7 @@ export const Stepper: React.FC<StepperProps> = ({
                 <p className={`text-xs font-bold ${status === 'pending' ? 'text-gray-500' : 'text-gray-800'}`}>
                   {step}
                 </p>
-                {status === 'in_progress' && <p className="text-[10px] font-medium text-blue-600 mt-0.5">กำลังดำเนินการ</p>}
+                {status === 'in_progress' && <p className="text-[10px] font-medium text-brand-600 mt-0.5">กำลังดำเนินการ</p>}
                 {status === 'rejected' && <p className="text-[10px] font-medium text-red-500 mt-0.5">ต้องแก้ไข</p>}
               </div>
             </div>

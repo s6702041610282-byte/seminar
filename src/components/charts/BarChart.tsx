@@ -32,20 +32,20 @@ export default function BarChartComponent({
         layout={layout === 'vertical' ? 'vertical' : 'horizontal'}
         margin={{ top: 10, right: 30, left: layout === 'vertical' ? 80 : 0, bottom: 5 }}
       >
-        {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />}
+        {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#EDEFF5" vertical={layout === 'vertical'} horizontal={layout !== 'vertical'} />}
         {layout === 'vertical' ? (
           <>
-            <XAxis type="number" tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }} />
-            <YAxis dataKey={xKey} type="category" tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }} width={120} />
+            <XAxis type="number" tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }} />
+            <YAxis dataKey={xKey} type="category" tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }} width={120} />
           </>
         ) : (
           <>
-            <XAxis dataKey={xKey} tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }} />
-            <YAxis domain={yDomain} tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }} />
+            <XAxis dataKey={xKey} tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }} />
+            <YAxis domain={yDomain} tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }} />
           </>
         )}
         <Tooltip
-          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontFamily: 'Noto Sans Thai' }}
+          contentStyle={{ borderRadius: '12px', border: '1px solid #E5E7EF', boxShadow: '0 12px 28px -12px rgba(15,23,42,0.25)', fontFamily: 'Noto Sans Thai' }}
         />
         {showLegend && (
           <Legend
@@ -61,7 +61,7 @@ export default function BarChartComponent({
             fill={bar.color}
             name={bar.name}
             stackId={bar.stackId}
-            radius={bar.radius !== undefined ? [bar.radius, bar.radius, 0, 0] : undefined}
+            radius={bar.radius !== undefined ? [bar.radius, bar.radius, 0, 0] : (bar.stackId ? undefined : layout === 'vertical' ? [0, 6, 6, 0] : [6, 6, 0, 0])}
             maxBarSize={50}
           />
         ))}

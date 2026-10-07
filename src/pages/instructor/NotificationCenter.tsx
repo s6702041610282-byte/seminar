@@ -31,38 +31,38 @@ const NotificationCenter: React.FC = () => {
       case 'urgent': return <AlertTriangle className="w-5 h-5 text-red-500" />;
       case 'warning': return <AlertTriangle className="w-5 h-5 text-orange-500" />;
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      default: return <Info className="w-5 h-5 text-blue-500" />;
+      default: return <Info className="w-5 h-5 text-brand-500" />;
     }
   };
 
   return (
     <div className="p-6 max-w-4xl mx-auto font-sans space-y-6">
-      <div className="flex justify-between items-end">
+      <div className="page-hero flex justify-between items-end">
         <div className="flex items-center">
-          <Bell className="w-6 h-6 text-[#063B78] mr-3" />
+          <span className="page-hero-icon mr-4"><Bell className="w-6 h-6" /></span>
           <div>
-            <h1 className="text-2xl font-bold text-[#063B78]">ศูนย์แจ้งเตือน</h1>
-            <p className="text-gray-500 mt-1">อัปเดตกิจกรรมและการแจ้งเตือนที่สำคัญ</p>
+            <h1 className="page-hero-title">ศูนย์แจ้งเตือน</h1>
+            <p className="page-hero-sub">อัปเดตกิจกรรมและการแจ้งเตือนที่สำคัญ</p>
           </div>
         </div>
         <button 
           onClick={markAllAsRead}
-          className="text-sm text-[#063B78] hover:underline flex items-center"
+          className="text-sm text-brand-700 hover:underline flex items-center"
         >
           <Check className="w-4 h-4 mr-1" /> ทำเครื่องหมายว่าอ่านแล้วทั้งหมด
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="flex border-b border-gray-100">
           <button 
-            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'all' ? 'border-b-2 border-[#063B78] text-[#063B78]' : 'text-gray-500 hover:bg-gray-50'}`}
+            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'all' ? 'border-b-2 border-brand-700 text-brand-700' : 'text-slate-500 hover:bg-brand-50/60'}`}
             onClick={() => setActiveTab('all')}
           >
             ทั้งหมด
           </button>
           <button 
-            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'unread' ? 'border-b-2 border-[#063B78] text-[#063B78]' : 'text-gray-500 hover:bg-gray-50'}`}
+            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'unread' ? 'border-b-2 border-brand-700 text-brand-700' : 'text-slate-500 hover:bg-brand-50/60'}`}
             onClick={() => setActiveTab('unread')}
           >
             ยังไม่อ่าน
@@ -73,7 +73,7 @@ const NotificationCenter: React.FC = () => {
             )}
           </button>
           <button 
-            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'read' ? 'border-b-2 border-[#063B78] text-[#063B78]' : 'text-gray-500 hover:bg-gray-50'}`}
+            className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'read' ? 'border-b-2 border-brand-700 text-brand-700' : 'text-slate-500 hover:bg-brand-50/60'}`}
             onClick={() => setActiveTab('read')}
           >
             อ่านแล้ว
@@ -84,12 +84,12 @@ const NotificationCenter: React.FC = () => {
           {filteredNotifs.length > 0 ? filteredNotifs.map(notification => (
             <div 
               key={notification.id} 
-              className={`p-4 hover:bg-gray-50 transition-colors flex gap-4 ${!notification.read ? 'bg-blue-50/30' : ''}`}
+              className={`p-4 hover:bg-brand-50/50 transition-colors flex gap-4 ${!notification.read ? 'bg-brand-50/30' : ''}`}
             >
               <div className={`p-2 rounded-full h-fit flex-shrink-0 ${
                 notification.type === 'urgent' ? 'bg-red-100' :
                 notification.type === 'warning' ? 'bg-orange-100' :
-                notification.type === 'success' ? 'bg-green-100' : 'bg-blue-100'
+                notification.type === 'success' ? 'bg-green-100' : 'bg-brand-100'
               }`}>
                 {getIcon(notification.type)}
               </div>
@@ -105,14 +105,14 @@ const NotificationCenter: React.FC = () => {
                 {!notification.read && (
                   <button 
                     onClick={() => markAsRead(notification.id)}
-                    className="mt-2 text-xs text-[#063B78] font-medium hover:underline"
+                    className="mt-2 text-xs text-brand-700 font-medium hover:underline"
                   >
                     ทำเครื่องหมายว่าอ่านแล้ว
                   </button>
                 )}
               </div>
               {!notification.read && (
-                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 rounded-full bg-brand-500 mt-2 flex-shrink-0"></div>
               )}
             </div>
           )) : (

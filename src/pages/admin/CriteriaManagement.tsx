@@ -89,7 +89,7 @@ const CriteriaManagement: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium w-12">ลำดับ</th>
                 <th className="p-4 font-medium">ชื่อเกณฑ์</th>
                 <th className="p-4 font-medium w-28 text-center">คะแนนเต็ม</th>
@@ -107,7 +107,7 @@ const CriteriaManagement: React.FC = () => {
                         type="text"
                         value={c.name}
                         onChange={e => updateCriterion(criteria, setCriteria, c.id, 'name', e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+                        className="w-full p-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
                       />
                     ) : (
                       <span className="text-gray-800">{c.name}</span>
@@ -119,7 +119,7 @@ const CriteriaManagement: React.FC = () => {
                         type="number"
                         value={c.maxScore}
                         onChange={e => updateCriterion(criteria, setCriteria, c.id, 'maxScore', Number(e.target.value))}
-                        className="w-20 p-2 border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+                        className="w-20 p-2 border border-slate-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
                       />
                     ) : (
                       <span className="font-medium text-gray-800">{c.maxScore}</span>
@@ -132,7 +132,7 @@ const CriteriaManagement: React.FC = () => {
                         step="0.01"
                         value={c.weight}
                         onChange={e => updateCriterion(criteria, setCriteria, c.id, 'weight', Number(e.target.value))}
-                        className="w-20 p-2 border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+                        className="w-20 p-2 border border-slate-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
                       />
                     ) : (
                       <span className="text-gray-700">{c.weight}%</span>
@@ -171,7 +171,7 @@ const CriteriaManagement: React.FC = () => {
         {editMode && (
           <button
             onClick={() => addCriterion(criteria, setCriteria)}
-            className="flex items-center gap-2 px-4 py-2 text-[#063B78] border border-dashed border-[#063B78]/30 rounded-lg hover:bg-[#063B78]/5 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2 text-brand-700 border border-dashed border-brand-700/30 rounded-lg hover:bg-brand-700/5 transition-colors text-sm"
           >
             <Plus className="w-4 h-4" /> เพิ่มเกณฑ์
           </button>
@@ -194,14 +194,14 @@ const CriteriaManagement: React.FC = () => {
                     type="number"
                     value={item.weight}
                     onChange={e => setRiskWeights(riskWeights.map(r => r.id === item.id ? { ...r, weight: Number(e.target.value) } : r))}
-                    className="w-full p-2 border border-gray-300 rounded-lg text-right focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+                    className="w-full p-2 border border-slate-300 rounded-lg text-right focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                   />
                   <span className="text-sm font-bold text-gray-500">%</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <div className="flex-1 bg-gray-100 rounded-full h-2.5">
-                    <div className="bg-[#063B78] h-2.5 rounded-full" style={{ width: `${item.weight}%` }} />
+                    <div className="bg-brand-700 h-2.5 rounded-full" style={{ width: `${item.weight}%` }} />
                   </div>
                   <span className="text-sm font-bold text-gray-700 min-w-[40px] text-right">{item.weight}%</span>
                 </div>
@@ -235,7 +235,7 @@ const CriteriaManagement: React.FC = () => {
                   type="number"
                   value={grade.min}
                   onChange={e => setGradeThresholds(gradeThresholds.map(g => g.id === grade.id ? { ...g, min: Number(e.target.value) } : g))}
-                  className="w-full p-2 border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+                  className="w-full p-2 border border-slate-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 />
               ) : (
                 <div className="text-2xl font-bold text-gray-800 text-center">{grade.min}</div>
@@ -249,7 +249,7 @@ const CriteriaManagement: React.FC = () => {
                   type="number"
                   value={grade.max}
                   onChange={e => setGradeThresholds(gradeThresholds.map(g => g.id === grade.id ? { ...g, max: Number(e.target.value) } : g))}
-                  className="w-full p-2 border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+                  className="w-full p-2 border border-slate-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 />
               ) : (
                 <div className="text-2xl font-bold text-gray-800 text-center">{grade.max}</div>
@@ -264,10 +264,10 @@ const CriteriaManagement: React.FC = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+      <div className="page-hero flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#063B78]">จัดการเกณฑ์ประเมิน</h1>
-          <p className="text-gray-500 mt-1">ตั้งค่าเกณฑ์การให้คะแนนและคำนวณความเสี่ยง</p>
+          <h1 className="page-hero-title">จัดการเกณฑ์ประเมิน</h1>
+          <p className="page-hero-sub">ตั้งค่าเกณฑ์การให้คะแนนและคำนวณความเสี่ยง</p>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -286,7 +286,7 @@ const CriteriaManagement: React.FC = () => {
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-4 py-2 bg-[#063B78] text-white rounded-lg hover:bg-[#032A57] transition-colors text-sm font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-700 text-white rounded-lg hover:bg-brand-800 transition-colors text-sm font-medium"
           >
             <Save className="w-4 h-4" /> บันทึก
           </button>
@@ -301,7 +301,7 @@ const CriteriaManagement: React.FC = () => {
       )}
 
       {/* Tabs */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="flex border-b border-gray-100">
           {tabs.map(tab => (
             <button
@@ -309,13 +309,13 @@ const CriteriaManagement: React.FC = () => {
               onClick={() => setActiveTab(tab.key)}
               className={`flex-1 px-4 py-3.5 text-sm font-medium transition-colors relative ${
                 activeTab === tab.key
-                  ? 'text-[#063B78] bg-white'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  ? 'text-brand-700 bg-white'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-brand-50/50'
               }`}
             >
               {tab.label}
               {activeTab === tab.key && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#063B78]" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-700" />
               )}
             </button>
           ))}

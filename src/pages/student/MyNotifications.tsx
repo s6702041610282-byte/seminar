@@ -7,7 +7,7 @@ const MyNotifications = () => {
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'system': return <Info className="w-5 h-5 text-blue-500" />;
+      case 'system': return <Info className="w-5 h-5 text-brand-500" />;
       case 'alert': return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'submission': return <FileText className="w-5 h-5 text-green-500" />;
       default: return <Bell className="w-5 h-5 text-gray-500" />;
@@ -16,21 +16,21 @@ const MyNotifications = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-end">
+      <div className="page-hero flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">การแจ้งเตือน</h1>
-          <p className="text-gray-500">Notifications</p>
+          <h1 className="page-hero-title">การแจ้งเตือน</h1>
+          <p className="page-hero-sub">Notifications</p>
         </div>
-        <button className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+        <button className="text-sm text-brand-600 hover:text-brand-700 font-medium flex items-center gap-1">
           <Check className="w-4 h-4" />
           ทำเครื่องหมายว่าอ่านแล้วทั้งหมด
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="divide-y divide-gray-100">
           {studentNotifications.map((notif) => (
-            <div key={notif.id} className={`p-4 sm:p-6 hover:bg-gray-50 transition-colors flex gap-4 ${notif.isRead ? 'opacity-70' : 'bg-emerald-50/30'}`}>
+            <div key={notif.id} className={`p-4 sm:p-6 hover:bg-brand-50/50 transition-colors flex gap-4 ${notif.isRead ? 'opacity-70' : 'bg-brand-50/30'}`}>
               <div className="mt-1 flex-shrink-0">
                 <div className={`p-2 rounded-full ${notif.isRead ? 'bg-gray-100' : 'bg-white shadow-sm'}`}>
                   {getIcon(notif.type)}
@@ -45,7 +45,7 @@ const MyNotifications = () => {
               </div>
               {!notif.isRead && (
                 <div className="flex-shrink-0 flex items-center justify-center">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-brand-500 rounded-full"></div>
                 </div>
               )}
             </div>

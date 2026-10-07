@@ -64,14 +64,14 @@ export function DataTable<T extends Record<string, any>>({
   const paginatedData = sortedData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden font-sans">
+    <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden font-sans">
       <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-white">
         <div className="relative w-full max-w-xs">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 bg-gray-50"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -84,7 +84,7 @@ export function DataTable<T extends Record<string, any>>({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
+            <tr className="bg-brand-50/60 border-b border-brand-100 text-slate-500 text-sm">
               {columns.map((col) => (
                 <th
                   key={col.key as string}
@@ -94,7 +94,7 @@ export function DataTable<T extends Record<string, any>>({
                   <div className="flex items-center">
                     {col.label}
                     {col.sortable && sortConfig?.key === col.key && (
-                      <span className="ml-1 text-blue-600">
+                      <span className="ml-1 text-brand-600">
                         {sortConfig.direction === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                       </span>
                     )}
@@ -108,7 +108,7 @@ export function DataTable<T extends Record<string, any>>({
               paginatedData.map((item, index) => (
                 <tr
                   key={index}
-                  className={`border-b border-gray-50 hover:bg-blue-50/50 transition-colors ${onRowClick ? 'cursor-pointer' : ''}`}
+                  className={`border-b border-gray-50 hover:bg-brand-50/50 transition-colors ${onRowClick ? 'cursor-pointer' : ''}`}
                   onClick={() => onRowClick && onRowClick(item)}
                 >
                   {columns.map((col) => (
@@ -138,17 +138,17 @@ export function DataTable<T extends Record<string, any>>({
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="p-1 rounded-md border border-gray-200 disabled:opacity-50 hover:bg-gray-50 focus:outline-none"
+              className="p-1 rounded-lg border border-gray-200 disabled:opacity-50 hover:bg-brand-50/50 focus:outline-none"
             >
               <ChevronLeft size={18} />
             </button>
-            <div className="px-3 py-1 bg-gray-50 rounded-md border border-gray-200 font-medium">
+            <div className="px-3 py-1 bg-gray-50 rounded-lg border border-gray-200 font-medium">
               {currentPage} / {totalPages}
             </div>
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="p-1 rounded-md border border-gray-200 disabled:opacity-50 hover:bg-gray-50 focus:outline-none"
+              className="p-1 rounded-lg border border-gray-200 disabled:opacity-50 hover:bg-brand-50/50 focus:outline-none"
             >
               <ChevronRight size={18} />
             </button>

@@ -5,9 +5,9 @@ import LineChartComponent from '../../components/charts/LineChart';
 import { Activity, TrendingUp, CheckCircle, Award, FileText, Clock, AlertCircle } from 'lucide-react';
 
 const SummaryCard = ({ title, value, subtitle, icon: Icon, colorClass }: any) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-start gap-4">
-    <div className={`p-3 rounded-lg ${colorClass} bg-opacity-10 flex-shrink-0`}>
-      <Icon className={`w-6 h-6 ${colorClass.replace('bg-', 'text-')}`} />
+  <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-5 flex flex-col items-start gap-3">
+    <div className={`p-3 rounded-xl ${colorClass} text-white flex-shrink-0`}>
+      <Icon className="w-6 h-6" />
     </div>
     <div>
       <p className="text-sm text-gray-500 font-medium mb-1">{title}</p>
@@ -44,9 +44,9 @@ const MyWeeklyProgress = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">ความก้าวหน้ารายสัปดาห์</h1>
-        <p className="text-gray-500">My Weekly Progress</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">ความก้าวหน้ารายสัปดาห์</h1>
+        <p className="page-hero-sub">My Weekly Progress</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -54,9 +54,9 @@ const MyWeeklyProgress = () => {
           title="คะแนนเฉลี่ย" 
           value={`${weeklyAvg.toFixed(1)}%`} 
           icon={TrendingUp} 
-          colorClass="bg-blue-600" 
+          colorClass="bg-brand-600" 
         />
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-center items-center">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6 flex flex-col justify-center items-center">
           <p className="text-sm text-gray-500 font-medium mb-2">แนวโน้ม</p>
           <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${trendInfo.color} ${trendInfo.bgColor}`}>
             <span className="text-xl font-bold">{trendInfo.icon}</span>
@@ -77,14 +77,14 @@ const MyWeeklyProgress = () => {
         />
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-4">กราฟคะแนนรายสัปดาห์</h3>
         <div className="h-80">
-          <LineChartComponent data={chartData} xKey="week" lines={[{ key: 'score', name: 'คะแนน', color: '#065F46' }]} />
+          <LineChartComponent data={chartData} xKey="week" lines={[{ key: 'score', name: 'คะแนน', color: 'var(--brand-700)' }]} />
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-4">ประวัติการส่งความก้าวหน้า</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">

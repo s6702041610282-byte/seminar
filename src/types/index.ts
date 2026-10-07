@@ -19,6 +19,7 @@ export interface Student {
   studentId: string;
   name: string;
   email: string;
+  /** กลุ่มนักศึกษา: CED หรือ TCT */
   group: string;
   year: number;
   phone?: string;

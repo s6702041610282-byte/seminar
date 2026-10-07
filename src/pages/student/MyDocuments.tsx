@@ -37,14 +37,14 @@ const MyDocuments = () => {
 
   return (
     <div className="space-y-6 relative">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="page-hero flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">เอกสารของฉัน</h1>
-          <p className="text-gray-500">My Documents</p>
+          <h1 className="page-hero-title">เอกสารของฉัน</h1>
+          <p className="page-hero-sub">My Documents</p>
         </div>
         <button 
           onClick={() => setShowUpload(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
         >
           <Upload className="w-4 h-4" />
           <span>อัปโหลดเอกสาร</span>
@@ -52,7 +52,7 @@ const MyDocuments = () => {
       </div>
 
       {showUpload && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-gray-900">อัปโหลดเอกสารใหม่</h2>
@@ -64,7 +64,7 @@ const MyDocuments = () => {
                 <select 
                   value={uploadData.round}
                   onChange={e => setUploadData({...uploadData, round: e.target.value})}
-                  className="w-full border-gray-300 rounded-lg p-2.5 border focus:border-emerald-500 focus:ring-emerald-500"
+                  className="w-full border-gray-300 rounded-lg p-2.5 border focus:border-brand-500 focus:ring-brand-500/30 focus:border-brand-500"
                 >
                   <option value="Proposal">Proposal</option>
                   <option value="Progress">Progress</option>
@@ -77,7 +77,7 @@ const MyDocuments = () => {
                 <select 
                   value={uploadData.type}
                   onChange={e => setUploadData({...uploadData, type: e.target.value})}
-                  className="w-full border-gray-300 rounded-lg p-2.5 border focus:border-emerald-500 focus:ring-emerald-500"
+                  className="w-full border-gray-300 rounded-lg p-2.5 border focus:border-brand-500 focus:ring-brand-500/30 focus:border-brand-500"
                 >
                   <option value="report">เอกสารรายงาน</option>
                   <option value="slide">สไลด์นำเสนอ</option>
@@ -91,25 +91,25 @@ const MyDocuments = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">เลือกไฟล์</label>
-                <input type="file" className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />
+                <input type="file" className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100" />
               </div>
               <div className="pt-4 flex justify-end gap-3">
                 <button type="button" onClick={() => setShowUpload(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">ยกเลิก</button>
-                <button type="submit" className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700">อัปโหลด</button>
+                <button type="submit" className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700">อัปโหลด</button>
               </div>
             </form>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
           <div className="relative w-64">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input 
               type="text" 
               placeholder="ค้นหาเอกสาร..." 
-              className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+              className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
             />
           </div>
         </div>
@@ -128,7 +128,7 @@ const MyDocuments = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {myDocs.map((doc) => (
-                <tr key={doc.id} className="hover:bg-gray-50">
+                <tr key={doc.id} className="hover:bg-brand-50/50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <FileText className="w-5 h-5 text-gray-400 mr-3" />
@@ -152,7 +152,7 @@ const MyDocuments = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="text-blue-600 hover:text-blue-900 p-1 bg-blue-50 hover:bg-blue-100 rounded" title="ดาวน์โหลด">
+                      <button className="text-brand-600 hover:text-brand-900 p-1 bg-brand-50 hover:bg-brand-100 rounded" title="ดาวน์โหลด">
                         <Download className="w-4 h-4" />
                       </button>
                       {doc.status === 'pending' && (

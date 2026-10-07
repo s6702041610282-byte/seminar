@@ -42,7 +42,7 @@ export default function DonutChart({
         </Pie>
         <Tooltip
           formatter={(value: any) => [value, '']}
-          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontFamily: 'Noto Sans Thai' }}
+          contentStyle={{ borderRadius: '12px', border: '1px solid #E5E7EF', boxShadow: '0 12px 28px -12px rgba(15,23,42,0.25)', fontFamily: 'Noto Sans Thai' }}
         />
         {showLegend && (
           <Legend

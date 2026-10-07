@@ -8,18 +8,18 @@ const MyFeedback = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Feedback จากอาจารย์</h1>
-        <p className="text-gray-500">Instructor Feedback</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">Feedback จากอาจารย์</h1>
+        <p className="page-hero-sub">Instructor Feedback</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
         <div className="space-y-6">
           {feedbacks.length > 0 ? feedbacks.map((fb) => (
-            <div key={fb.id} className={`p-4 rounded-xl border ${fb.isAddressed ? 'border-gray-200 bg-gray-50' : 'border-blue-100 bg-blue-50/30'}`}>
+            <div key={fb.id} className={`p-4 rounded-xl border ${fb.isAddressed ? 'border-gray-200 bg-gray-50' : 'border-brand-100 bg-brand-50/30'}`}>
               <div className="flex justify-between items-start mb-2">
                 <div className="flex items-center gap-2">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${fb.type === 'weekly' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${fb.type === 'weekly' ? 'bg-brand-100 text-brand-800' : 'bg-purple-100 text-purple-800'}`}>
                     {fb.type === 'weekly' ? 'รายสัปดาห์' : 'การนำเสนอ'}
                   </span>
                   <span className="text-sm text-gray-500 flex items-center gap-1">

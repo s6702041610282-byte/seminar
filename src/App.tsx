@@ -8,7 +8,6 @@ import Login from './pages/Login';
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import WeeklyProgressDashboard from './pages/instructor/WeeklyProgressDashboard';
 import PresentationDashboard from './pages/instructor/PresentationDashboard';
-import RiskScoreDashboard from './pages/instructor/RiskScoreDashboard';
 import StudentList from './pages/instructor/StudentList';
 import StudentDetail from './pages/instructor/StudentDetail';
 import ProjectTracking from './pages/instructor/ProjectTracking';
@@ -18,13 +17,13 @@ import DocumentManagement from './pages/instructor/DocumentManagement';
 import NotificationCenter from './pages/instructor/NotificationCenter';
 import ReportsPage from './pages/instructor/ReportsPage';
 import InstructorSettings from './pages/instructor/InstructorSettings';
+import ApprovalCenter from './pages/instructor/ApprovalCenter';
 
 // Student Pages
 import StudentDashboard from './pages/student/StudentDashboard';
 import MyProject from './pages/student/MyProject';
 import MyWeeklyProgress from './pages/student/MyWeeklyProgress';
 import MyPresentation from './pages/student/MyPresentation';
-import MyRiskScore from './pages/student/MyRiskScore';
 import MyDocuments from './pages/student/MyDocuments';
 import MyFeedback from './pages/student/MyFeedback';
 import MyCalendar from './pages/student/MyCalendar';
@@ -34,8 +33,6 @@ import StudentSettings from './pages/student/StudentSettings';
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
-import StudentManagement from './pages/admin/StudentManagement';
-import InstructorManagement from './pages/admin/InstructorManagement';
 import ProjectManagement from './pages/admin/ProjectManagement';
 import CriteriaManagement from './pages/admin/CriteriaManagement';
 import AdminReports from './pages/admin/AdminReports';
@@ -64,13 +61,14 @@ function AppRoutes() {
       }>
         <Route index element={<InstructorDashboard />} />
         <Route path="projects" element={<InstructorProjects />} />
+        <Route path="approvals" element={<ApprovalCenter />} />
         <Route path="students" element={<StudentList />} />
         <Route path="students/:studentId" element={<StudentDetail />} />
         <Route path="tracking" element={<ProjectTracking />} />
         <Route path="weekly-progress" element={<WeeklyProgressDashboard />} />
         <Route path="presentations" element={<PresentationDashboard />} />
         <Route path="analytics" element={<LearningAnalytics />} />
-        <Route path="risk-score" element={<RiskScoreDashboard />} />
+        <Route path="risk-score" element={<Navigate to="/instructor/analytics" replace />} />
         <Route path="notifications" element={<NotificationCenter />} />
         <Route path="reports" element={<ReportsPage />} />
         <Route path="documents" element={<DocumentManagement />} />
@@ -87,7 +85,7 @@ function AppRoutes() {
         <Route path="my-project" element={<MyProject />} />
         <Route path="weekly-progress" element={<MyWeeklyProgress />} />
         <Route path="presentations" element={<MyPresentation />} />
-        <Route path="risk-score" element={<MyRiskScore />} />
+        <Route path="risk-score" element={<Navigate to="/student" replace />} />
         <Route path="documents" element={<MyDocuments />} />
         <Route path="feedback" element={<MyFeedback />} />
         <Route path="calendar" element={<MyCalendar />} />
@@ -103,8 +101,8 @@ function AppRoutes() {
       }>
         <Route index element={<AdminDashboard />} />
         <Route path="users" element={<UserManagement />} />
-        <Route path="students" element={<StudentManagement />} />
-        <Route path="instructors" element={<InstructorManagement />} />
+        <Route path="students" element={<Navigate to="/admin/users?role=student" replace />} />
+        <Route path="instructors" element={<Navigate to="/admin/users?role=instructor" replace />} />
         <Route path="projects" element={<ProjectManagement />} />
         <Route path="criteria" element={<CriteriaManagement />} />
         <Route path="reports" element={<AdminReports />} />

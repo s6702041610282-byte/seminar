@@ -15,11 +15,11 @@ const statusBadge: Record<string, { label: string; bg: string; text: string }> =
   proposed: { label: 'เสนอหัวข้อ', bg: 'bg-gray-100', text: 'text-gray-700' },
   topic_review: { label: 'ตรวจสอบหัวข้อ', bg: 'bg-gray-100', text: 'text-gray-700' },
   advisor_assigned: { label: 'แต่งตั้งที่ปรึกษา', bg: 'bg-gray-100', text: 'text-gray-700' },
-  approved: { label: 'อนุมัติแล้ว', bg: 'bg-sky-100', text: 'text-sky-700' },
-  in_progress: { label: 'กำลังดำเนินการ', bg: 'bg-blue-100', text: 'text-blue-800' },
-  reporting: { label: 'รายงานความก้าวหน้า', bg: 'bg-blue-100', text: 'text-blue-800' },
+  approved: { label: 'อนุมัติแล้ว', bg: 'bg-brand-100', text: 'text-brand-700' },
+  in_progress: { label: 'กำลังดำเนินการ', bg: 'bg-brand-100', text: 'text-brand-800' },
+  reporting: { label: 'รายงานความก้าวหน้า', bg: 'bg-brand-100', text: 'text-brand-800' },
   revision: { label: 'แก้ไข', bg: 'bg-orange-100', text: 'text-orange-800' },
-  submitted: { label: 'ส่งเล่มแล้ว', bg: 'bg-indigo-100', text: 'text-indigo-800' },
+  submitted: { label: 'ส่งเล่มแล้ว', bg: 'bg-brand-100', text: 'text-brand-800' },
   completed: { label: 'เสร็จสิ้น', bg: 'bg-emerald-100', text: 'text-emerald-800' },
 };
 
@@ -81,22 +81,22 @@ const ProjectManagement: React.FC = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-end">
+      <div className="page-hero flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-[#063B78]">จัดการโครงงาน</h1>
-          <p className="text-gray-500 mt-1">ศูนย์กลางจัดการโครงงานทั้งหมด (Admin)</p>
+          <h1 className="page-hero-title">จัดการโครงงาน</h1>
+          <p className="page-hero-sub">ศูนย์กลางจัดการโครงงานทั้งหมด (Admin)</p>
         </div>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { icon: BookOpen, label: 'โครงงานทั้งหมด', value: summary.total, color: 'bg-blue-600' },
+          { icon: BookOpen, label: 'โครงงานทั้งหมด', value: summary.total, color: 'bg-brand-600' },
           { icon: Clock, label: 'รออนุมัติ/ดำเนินการ', value: summary.pending, color: 'bg-amber-500' },
           { icon: CheckCircle, label: 'อนุมัติแล้ว/ส่งแล้ว', value: summary.approved, color: 'bg-emerald-600' },
           { icon: AlertTriangle, label: 'ต้องแก้ไข', value: summary.revision, color: 'bg-red-500' },
         ].map((card, idx) => (
-          <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+          <div key={idx} className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-5">
             <div className="flex items-center gap-3">
               <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${card.color}`}>
                 <card.icon className="w-5 h-5 text-white" />
@@ -112,10 +112,10 @@ const ProjectManagement: React.FC = () => {
 
       {/* Batch Actions */}
       {selectedIds.size > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between">
-          <span className="text-sm font-medium text-blue-800">เลือก {selectedIds.size} โครงงาน</span>
+        <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 flex items-center justify-between">
+          <span className="text-sm font-medium text-brand-800">เลือก {selectedIds.size} โครงงาน</span>
           <div className="flex gap-2">
-            <button className="px-4 py-2 bg-[#063B78] text-white rounded-lg text-sm font-medium hover:bg-[#032A57] transition-colors">
+            <button className="px-4 py-2 bg-brand-700 text-white rounded-lg text-sm font-medium hover:bg-brand-800 transition-colors">
               อนุมัติโครงงาน
             </button>
             <button className="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600 transition-colors">
@@ -129,20 +129,20 @@ const ProjectManagement: React.FC = () => {
       )}
 
       {/* Search & Filter */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
               placeholder="ค้นหารหัส, ชื่อโครงงาน, ชื่อนักศึกษา..."
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <select
-            className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+            className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -156,11 +156,11 @@ const ProjectManagement: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium w-10">
                   <input
                     type="checkbox"
@@ -204,7 +204,7 @@ const ProjectManagement: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div
-                            className={`h-2 rounded-full ${progress >= 80 ? 'bg-green-500' : progress >= 40 ? 'bg-blue-500' : 'bg-orange-500'}`}
+                            className={`h-2 rounded-full ${progress >= 80 ? 'bg-green-500' : progress >= 40 ? 'bg-brand-500' : 'bg-orange-500'}`}
                             style={{ width: `${progress}%` }}
                           />
                         </div>
@@ -227,13 +227,13 @@ const ProjectManagement: React.FC = () => {
                         </button>
                         <button
                           onClick={() => openAdvisorModal(project.id, project.advisorId)}
-                          className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                          className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                           title="สับเปลี่ยนอาจารย์"
                         >
                           <Users className="w-4 h-4" />
                         </button>
                         <button
-                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                           title="ดูรายละเอียด"
                         >
                           <Eye className="w-4 h-4" />
@@ -270,7 +270,7 @@ const ProjectManagement: React.FC = () => {
                 <select
                   value={newStatus}
                   onChange={e => setNewStatus(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 >
                   {statusOptions.map(s => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -281,7 +281,7 @@ const ProjectManagement: React.FC = () => {
                 <button onClick={() => setStatusModal(null)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium">
                   ยกเลิก
                 </button>
-                <button onClick={() => setStatusModal(null)} className="px-4 py-2 bg-[#063B78] text-white rounded-lg text-sm font-medium hover:bg-[#032A57] transition-colors">
+                <button onClick={() => setStatusModal(null)} className="px-4 py-2 bg-brand-700 text-white rounded-lg text-sm font-medium hover:bg-brand-800 transition-colors">
                   บันทึก
                 </button>
               </div>
@@ -303,7 +303,7 @@ const ProjectManagement: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">อาจารย์ที่ปรึกษาปัจจุบัน</label>
-                <p className="text-sm font-semibold text-[#063B78]">
+                <p className="text-sm font-semibold text-brand-700">
                   {instructors.find(i => i.id === advisorModal.currentAdvisorId)?.name || '-'}
                 </p>
               </div>
@@ -312,7 +312,7 @@ const ProjectManagement: React.FC = () => {
                 <select
                   value={newAdvisorId}
                   onChange={e => setNewAdvisorId(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 >
                   {instructors.map(ins => (
                     <option key={ins.id} value={ins.id}>
@@ -325,7 +325,7 @@ const ProjectManagement: React.FC = () => {
                 <button onClick={() => setAdvisorModal(null)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium">
                   ยกเลิก
                 </button>
-                <button onClick={() => setAdvisorModal(null)} className="px-4 py-2 bg-[#063B78] text-white rounded-lg text-sm font-medium hover:bg-[#032A57] transition-colors">
+                <button onClick={() => setAdvisorModal(null)} className="px-4 py-2 bg-brand-700 text-white rounded-lg text-sm font-medium hover:bg-brand-800 transition-colors">
                   ยืนยัน
                 </button>
               </div>

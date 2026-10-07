@@ -30,19 +30,19 @@ export default function LineChartComponent({
   return (
     <ResponsiveContainer width="100%" height={height}>
       <RechartsLineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
-        {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />}
+        {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#EDEFF5" vertical={false} />}
         <XAxis
           dataKey={xKey}
-          tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }}
+          tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }}
           label={xLabel ? { value: xLabel, position: 'insideBottom', offset: -5, style: { fontFamily: 'Noto Sans Thai' } } : undefined}
         />
         <YAxis
           domain={yDomain}
-          tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai' }}
+          tick={{ fontSize: 12, fontFamily: 'Noto Sans Thai', fill: '#64748B' }}
           label={yLabel ? { value: yLabel, angle: -90, position: 'insideLeft', style: { fontFamily: 'Noto Sans Thai' } } : undefined}
         />
         <Tooltip
-          contentStyle={{ borderRadius: '10px', border: '1px solid #e5e7eb', fontFamily: 'Noto Sans Thai' }}
+          contentStyle={{ borderRadius: '12px', border: '1px solid #E5E7EF', boxShadow: '0 12px 28px -12px rgba(15,23,42,0.25)', fontFamily: 'Noto Sans Thai' }}
         />
         {showLegend && (
           <Legend
@@ -58,9 +58,9 @@ export default function LineChartComponent({
             dataKey={line.key}
             stroke={line.color}
             name={line.name}
-            strokeWidth={line.strokeWidth || 2}
+            strokeWidth={line.strokeWidth || 2.5}
             strokeDasharray={line.dashed ? '5 5' : undefined}
-            dot={{ r: 4, fill: line.color }}
+            dot={{ r: 4, fill: '#fff', stroke: line.color, strokeWidth: 2 }}
             activeDot={{ r: 6 }}
           />
         ))}

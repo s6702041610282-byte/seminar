@@ -5,9 +5,9 @@ import LineChartComponent from '../../components/charts/LineChart';
 import { Mic, Award, Star, BarChart2, Calendar, Clock, Plus, CheckCircle2, XCircle } from 'lucide-react';
 
 const SummaryCard = ({ title, value, subtitle, icon: Icon, colorClass }: any) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-start gap-4">
-    <div className={`p-3 rounded-lg ${colorClass} bg-opacity-10 flex-shrink-0`}>
-      <Icon className={`w-6 h-6 ${colorClass.replace('bg-', 'text-')}`} />
+  <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-5 flex flex-col items-start gap-3">
+    <div className={`p-3 rounded-xl ${colorClass} text-white flex-shrink-0`}>
+      <Icon className="w-6 h-6" />
     </div>
     <div>
       <p className="text-sm text-gray-500 font-medium mb-1">{title}</p>
@@ -46,9 +46,9 @@ const MyPresentation = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">คะแนนการนำเสนอ</h1>
-        <p className="text-gray-500">My Presentations</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">คะแนนการนำเสนอ</h1>
+        <p className="page-hero-sub">My Presentations</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -56,9 +56,9 @@ const MyPresentation = () => {
           title="คะแนนเฉลี่ยรวม" 
           value={`${avgScore.toFixed(1)}%`} 
           icon={Mic} 
-          colorClass="bg-blue-600" 
+          colorClass="bg-brand-600" 
         />
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-center items-center">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6 flex flex-col justify-center items-center">
           <p className="text-sm text-gray-500 font-medium mb-2">ระดับความสามารถ</p>
           <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${levelInfo.color} ${levelInfo.bgColor}`}>
             <Star className="w-5 h-5" />
@@ -69,7 +69,7 @@ const MyPresentation = () => {
           title="สถานะ" 
           value="ผ่านเกณฑ์" 
           icon={Award} 
-          colorClass="bg-emerald-600" 
+          colorClass="bg-brand-600" 
         />
         <SummaryCard 
           title="อันดับในกลุ่ม" 
@@ -80,12 +80,12 @@ const MyPresentation = () => {
       </div>
 
       {/* Scheduling Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-bold text-gray-900">การนัดหมายนำเสนอ</h3>
           <button 
             onClick={() => setShowScheduleForm(!showScheduleForm)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors text-sm font-medium"
           >
             {showScheduleForm ? 'ยกเลิก' : <><Plus className="w-4 h-4" /> นัดวันนำเสนอ</>}
           </button>
@@ -99,7 +99,7 @@ const MyPresentation = () => {
                 <select 
                   value={formData.type}
                   onChange={e => setFormData({...formData, type: e.target.value})}
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2.5 border"
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 focus:border-brand-500 p-2.5 border"
                 >
                   <option>Proposal Presentation</option>
                   <option>Progress Presentation</option>
@@ -114,7 +114,7 @@ const MyPresentation = () => {
                   required
                   value={formData.date}
                   onChange={e => setFormData({...formData, date: e.target.value})}
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2.5 border text-gray-700"
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 focus:border-brand-500 p-2.5 border text-gray-700"
                 />
               </div>
               <div>
@@ -124,12 +124,12 @@ const MyPresentation = () => {
                   required
                   value={formData.time}
                   onChange={e => setFormData({...formData, time: e.target.value})}
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2.5 border text-gray-700"
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:border-brand-500 focus:ring-brand-500/30 focus:border-brand-500 p-2.5 border text-gray-700"
                 />
               </div>
             </div>
             <div className="flex justify-end">
-              <button type="submit" className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
+              <button type="submit" className="px-6 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors font-medium">
                 ส่งคำขอนัดหมาย
               </button>
             </div>
@@ -138,9 +138,9 @@ const MyPresentation = () => {
 
         <div className="space-y-3">
           {requests.map(req => (
-            <div key={req.id} className="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl shadow-sm">
+            <div key={req.id} className="flex items-center justify-between p-4 bg-white border border-slate-200/70 rounded-2xl shadow-card">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-50 text-blue-600 rounded-lg">
+                <div className="p-3 bg-brand-50 text-brand-600 rounded-lg">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
@@ -175,14 +175,14 @@ const MyPresentation = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">กราฟคะแนนนำเสนอ</h3>
           <div className="h-80">
-            <LineChartComponent data={chartData} xKey="name" lines={[{ key: 'คะแนนนำเสนอ', name: 'คะแนนนำเสนอ', color: '#3b82f6' }]} />
+            <LineChartComponent data={chartData} xKey="name" lines={[{ key: 'คะแนนนำเสนอ', name: 'คะแนนนำเสนอ', color: 'var(--brand-500)' }]} />
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">สัดส่วนคะแนน (Rubric)</h3>
           <div className="space-y-4">
             <div>
@@ -191,7 +191,7 @@ const MyPresentation = () => {
                 <span className="text-gray-900 font-bold">40%</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-2">
-                <div className="bg-blue-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                <div className="bg-brand-500 h-2 rounded-full" style={{ width: '85%' }}></div>
               </div>
             </div>
             <div>
@@ -200,7 +200,7 @@ const MyPresentation = () => {
                 <span className="text-gray-900 font-bold">30%</span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-2">
-                <div className="bg-emerald-500 h-2 rounded-full" style={{ width: '78%' }}></div>
+                <div className="bg-brand-500 h-2 rounded-full" style={{ width: '78%' }}></div>
               </div>
             </div>
             <div>
@@ -225,7 +225,7 @@ const MyPresentation = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-4">ประวัติการนำเสนอ</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">

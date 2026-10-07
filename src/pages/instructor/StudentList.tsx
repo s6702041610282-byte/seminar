@@ -45,26 +45,26 @@ const StudentList: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-[#063B78]">นักศึกษาที่ดูแลทั้งหมด</h1>
-        <p className="text-gray-500 mt-1">รายชื่อนักศึกษาและกลุ่มที่อยู่ในการดูแลของคุณ</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">นักศึกษาที่ดูแลทั้งหมด</h1>
+        <p className="page-hero-sub">รายชื่อนักศึกษาและกลุ่มที่อยู่ในการดูแลของคุณ</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input 
               type="text" 
               placeholder="ค้นหารหัสนักศึกษา, ชื่อ-สกุล..." 
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
             <Filter className="text-gray-400 w-5 h-5" />
-            <select className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]">
+            <select className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500">
               <option value="all">ทุกระดับความเสี่ยง</option>
               <option value="high">เสี่ยงสูง</option>
               <option value="medium">เสี่ยงปานกลาง</option>
@@ -74,11 +74,11 @@ const StudentList: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium text-center w-16">ลำดับ</th>
                 <th className="p-4 font-medium">รหัส</th>
                 <th className="p-4 font-medium">ชื่อ-สกุล</th>
@@ -96,7 +96,7 @@ const StudentList: React.FC = () => {
                 return (
                   <tr 
                     key={student.id} 
-                    className="border-b border-gray-50 hover:bg-blue-50/50 cursor-pointer transition-colors"
+                    className="border-b border-gray-50 hover:bg-brand-50/50 cursor-pointer transition-colors"
                     onClick={() => navigate(`/instructor/students/${student.id}`)}
                   >
                     <td className="p-4 text-center text-gray-500">{index + 1}</td>
@@ -108,7 +108,7 @@ const StudentList: React.FC = () => {
                     <td className="p-4 text-center text-lg"><TrendBadge trend={student.riskTrend} /></td>
                     <td className="p-4">
                       <div className="flex justify-center">
-                        <button className="p-1.5 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors">
+                        <button className="p-1.5 text-brand-600 hover:bg-brand-100 rounded-lg transition-colors">
                           <Eye className="w-4 h-4" />
                         </button>
                       </div>
@@ -122,9 +122,9 @@ const StudentList: React.FC = () => {
         <div className="p-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
           <div>แสดง {filteredStudents.length} รายการ</div>
           <div className="flex gap-1">
-            <button className="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50">ก่อนหน้า</button>
-            <button className="px-3 py-1 bg-[#063B78] text-white rounded">1</button>
-            <button className="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50">ถัดไป</button>
+            <button className="px-3 py-1 border border-gray-200 rounded hover:bg-brand-50/50 disabled:opacity-50">ก่อนหน้า</button>
+            <button className="px-3 py-1 bg-brand-700 text-white rounded">1</button>
+            <button className="px-3 py-1 border border-gray-200 rounded hover:bg-brand-50/50 disabled:opacity-50">ถัดไป</button>
           </div>
         </div>
       </div>

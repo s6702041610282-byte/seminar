@@ -31,20 +31,20 @@ const ProjectTracking: React.FC = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-[#063B78]">การติดตามความก้าวหน้า</h1>
-        <p className="text-gray-500 mt-1">ติดตาม 14 ขั้นตอนการดำเนินโครงงาน</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">การติดตามความก้าวหน้า</h1>
+        <p className="page-hero-sub">ติดตาม 14 ขั้นตอนการดำเนินโครงงาน</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { icon: Target, label: 'ขั้นตอนเฉลี่ย', value: `${summary.avgStep}/14`, color: 'bg-blue-600' },
+          { icon: Target, label: 'ขั้นตอนเฉลี่ย', value: `${summary.avgStep}/14`, color: 'bg-brand-600' },
           { icon: CheckCircle, label: 'ถึงขั้นตอนสุดท้าย', value: summary.reachedFinal, color: 'bg-emerald-600' },
           { icon: AlertTriangle, label: 'ต้องติดตาม (≤ Step 6)', value: summary.needsFollowUp, color: 'bg-amber-500' },
-          { icon: Clock, label: 'อัตราความสำเร็จ', value: `${summary.completionRate}%`, color: 'bg-indigo-600' },
+          { icon: Clock, label: 'อัตราความสำเร็จ', value: `${summary.completionRate}%`, color: 'bg-brand-600' },
         ].map((card, idx) => (
-          <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+          <div key={idx} className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-5">
             <div className="flex items-center gap-3">
               <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${card.color}`}>
                 <card.icon className="w-5 h-5 text-white" />
@@ -59,13 +59,13 @@ const ProjectTracking: React.FC = () => {
       </div>
 
       {/* Search */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
             placeholder="ค้นหาชื่อโครงงาน, ชื่อนักศึกษา..."
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 focus:border-[#063B78] transition-all"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-700 transition-all"
             value={searchTerm}
             onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
           />
@@ -79,7 +79,7 @@ const ProjectTracking: React.FC = () => {
           const progressPercent = Math.round((step / 14) * 100);
 
           return (
-            <div key={project.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+            <div key={project.id} className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden transition-shadow">
               {/* Project Info Header */}
               <div className="p-4 border-b border-gray-50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
@@ -92,7 +92,7 @@ const ProjectTracking: React.FC = () => {
                   </span>
                   <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
                     progressPercent >= 90 ? 'bg-emerald-100 text-emerald-700' :
-                    progressPercent >= 50 ? 'bg-blue-100 text-blue-700' :
+                    progressPercent >= 50 ? 'bg-brand-100 text-brand-700' :
                     'bg-amber-100 text-amber-700'
                   }`}>
                     {progressPercent}%
@@ -118,7 +118,7 @@ const ProjectTracking: React.FC = () => {
                               isCompleted
                                 ? 'bg-emerald-500 border-emerald-500 text-white'
                                 : isCurrent
-                                ? 'bg-blue-500 border-blue-500 text-white shadow-lg shadow-blue-200 animate-pulse'
+                                ? 'bg-brand-500 border-brand-500 text-white shadow-lg shadow-brand-200 animate-pulse'
                                 : 'bg-white border-gray-200 text-gray-400'
                             }`}
                           >
@@ -139,7 +139,7 @@ const ProjectTracking: React.FC = () => {
                         {idx < PROJECT_STEPS.length - 1 && (
                           <div className={`flex-1 h-0.5 mx-0.5 rounded ${
                             stepNum < step ? 'bg-emerald-400' :
-                            stepNum === step ? 'bg-gradient-to-r from-blue-400 to-gray-200' :
+                            stepNum === step ? 'bg-brand-400' :
                             'bg-gray-200'
                           }`} />
                         )}
@@ -153,7 +153,7 @@ const ProjectTracking: React.FC = () => {
               <div className="px-4 pb-4">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-500">ขั้นตอนปัจจุบัน:</span>
-                  <span className={`font-semibold ${step >= 14 ? 'text-emerald-600' : 'text-blue-600'}`}>
+                  <span className={`font-semibold ${step >= 14 ? 'text-emerald-600' : 'text-brand-600'}`}>
                     {PROJECT_STEPS[step - 1] || 'สำเร็จ'}
                   </span>
                 </div>
@@ -165,7 +165,7 @@ const ProjectTracking: React.FC = () => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <div className="flex items-center justify-between bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
           <span className="text-sm text-gray-500">
             แสดง {(currentPage - 1) * itemsPerPage + 1} ถึง {Math.min(currentPage * itemsPerPage, filteredProjects.length)} จาก {filteredProjects.length} โครงงาน
           </span>
@@ -173,7 +173,7 @@ const ProjectTracking: React.FC = () => {
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="p-1.5 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors"
+              className="p-1.5 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-40 hover:bg-brand-50/50 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -183,7 +183,7 @@ const ProjectTracking: React.FC = () => {
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="p-1.5 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors"
+              className="p-1.5 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-40 hover:bg-brand-50/50 transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

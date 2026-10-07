@@ -23,19 +23,19 @@ const DocumentManagement: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-[#063B78]">จัดการเอกสาร</h1>
-        <p className="text-gray-500 mt-1">ตรวจสอบและจัดการเอกสารของนักศึกษา</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">จัดการเอกสาร</h1>
+        <p className="page-hero-sub">ตรวจสอบและจัดการเอกสารของนักศึกษา</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input 
               type="text" 
               placeholder="ค้นหาชื่อไฟล์, ชื่อนักศึกษา..." 
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -43,7 +43,7 @@ const DocumentManagement: React.FC = () => {
           <div className="flex items-center gap-2">
             <Filter className="text-gray-400 w-5 h-5" />
             <select 
-              className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]"
+              className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500"
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
             >
@@ -56,11 +56,11 @@ const DocumentManagement: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium">ชื่อไฟล์</th>
                 <th className="p-4 font-medium">ประเภท</th>
                 <th className="p-4 font-medium">นักศึกษา (ผู้ส่ง)</th>
@@ -73,10 +73,10 @@ const DocumentManagement: React.FC = () => {
             </thead>
             <tbody className="text-sm">
               {documents.map((doc) => (
-                <tr key={doc.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <tr key={doc.id} className="border-b border-gray-50 hover:bg-brand-50/50 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center text-gray-900 font-medium">
-                      <FileText className="w-4 h-4 mr-2 text-blue-500" />
+                      <FileText className="w-4 h-4 mr-2 text-brand-500" />
                       {doc.name}
                     </div>
                   </td>
@@ -88,7 +88,7 @@ const DocumentManagement: React.FC = () => {
                   <td className="p-4 text-center text-gray-500">{doc.version}</td>
                   <td className="p-4">
                     <div className="flex justify-center gap-2">
-                      <button className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="ดูไฟล์">
+                      <button className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg transition-colors" title="ดูไฟล์">
                         <Eye className="w-4 h-4" />
                       </button>
                       <button className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="ดาวน์โหลด">

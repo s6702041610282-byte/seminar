@@ -9,13 +9,14 @@ import {
   getDashboardSummary
 } from '../../data/mockData';
 import { analyzeTrend, RISK_LEVEL_INFO } from '../../utils/calculations';
+import { RISK_FACTORS, LEVEL_TEXT } from '../../utils/riskExplain';
 import DonutChart from '../../components/charts/DonutChart';
 import LineChartComponent from '../../components/charts/LineChart';
 import BarChartComponent from '../../components/charts/BarChart';
 
 // Inline Components
 const SummaryCard = ({ icon: Icon, title, value, subtitle, color }: {icon: any, title: string, value: string|number, subtitle?: string, color: string}) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+  <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
     <div className="flex items-center gap-4">
       <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
         <Icon className="w-6 h-6 text-white" />
@@ -93,45 +94,102 @@ const InstructorDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">ภาพรวม Dashboard</h1>
-        <p className="text-gray-500">Project Management Dashboard</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">ภาพรวม Dashboard</h1>
+        <p className="page-hero-sub">Project Management Dashboard</p>
       </div>
 
-      <div className="flex flex-wrap gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-        <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+      <div className="flex flex-wrap gap-4 bg-white p-4 rounded-2xl shadow-card border border-slate-200/70">
+        <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
           <option>ภาคการศึกษา (1/2567)</option>
         </select>
-        <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
-          <option>ทุกกลุ่ม/ห้อง</option>
+        <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+          <option>ทุกกลุ่ม</option>
+          <option>CED</option>
+          <option>TCT</option>
         </select>
-        <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+        <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
           <option>อาจารย์ที่ปรึกษาทุกคน</option>
         </select>
-        <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+        <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
           <option>สถานะโครงงานทั้งหมด</option>
         </select>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <SummaryCard icon={Users} title="นักศึกษาทั้งหมด" value={summary.totalStudents} color="bg-blue-600" />
-        <SummaryCard icon={BookOpen} title="โครงงานทั้งหมด" value={summary.totalProjects} color="bg-blue-600" />
+        <SummaryCard icon={Users} title="นักศึกษาทั้งหมด" value={summary.totalStudents} color="bg-brand-600" />
+        <SummaryCard icon={BookOpen} title="โครงงานทั้งหมด" value={summary.totalProjects} color="bg-brand-600" />
         <SummaryCard icon={FileText} title="เสนอหัวข้อแล้ว" value={summary.proposedTopics} color="bg-green-600" />
         <SummaryCard icon={Activity} title="กำลังดำเนินการ" value={summary.inProgress} color="bg-yellow-500" />
-        <SummaryCard icon={Send} title="ส่งเล่มแล้ว" value={summary.submitted} color="bg-blue-500" />
+        <SummaryCard icon={Send} title="ส่งเล่มแล้ว" value={summary.submitted} color="bg-brand-500" />
         <SummaryCard icon={CheckCircle} title="ผ่านการประเมิน" value={summary.passed} color="bg-green-500" />
         <SummaryCard icon={Edit} title="อยู่ระหว่างแก้ไข" value={summary.underRevision} color="bg-orange-500" />
         <SummaryCard icon={AlertTriangle} title="มีความเสี่ยงสูง" value={summary.highRisk} color="bg-red-500" />
       </div>
 
+      {/* นักศึกษาที่ต้องติดตาม */}
+      {(() => {
+        const watch = allRiskScores
+          .filter(r => r.finalLevel === 'high')
+          .sort((a, b) => a.totalScore - b.totalScore);
+        return (
+          <div className="bg-white rounded-2xl shadow-card border border-slate-200 overflow-hidden">
+            <div className="flex items-center justify-between gap-3 px-6 py-4 border-b border-slate-100">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-800">นักศึกษาที่ต้องติดตาม</h2>
+                <p className="text-sm text-slate-500">ความเสี่ยงสูง เรียงจากคะแนนต่ำสุด</p>
+              </div>
+              <span className="rounded-md bg-red-50 px-2 py-0.5 text-sm font-semibold text-red-700">{watch.length} คน</span>
+            </div>
+            {watch.length === 0 ? (
+              <p className="px-6 py-8 text-center text-sm text-slate-500">ไม่มีนักศึกษาที่มีความเสี่ยงสูง</p>
+            ) : (
+              <ul className="divide-y divide-slate-100">
+                {watch.slice(0, 5).map(r => {
+                  const st = students.find(s => s.id === r.studentId);
+                  const weakest = RISK_FACTORS
+                    .map(f => ({ f, lost: f.weight * 100 - (r.breakdown[f.key] ?? 0) * f.weight }))
+                    .sort((a, b) => b.lost - a.lost)[0].f;
+                  return (
+                    <li key={r.studentId}>
+                      <button type="button" onClick={() => navigate(`/instructor/students/${r.studentId}`)}
+                        className="w-full flex items-center gap-4 px-6 py-3.5 text-left hover:bg-slate-50">
+                        <span className="w-14 shrink-0 text-center">
+                          <span className="block text-lg font-bold text-red-600">{r.totalScore.toFixed(0)}</span>
+                          <span className="block text-[11px] text-slate-400">/100</span>
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-medium text-slate-900 truncate">{st?.name || r.studentId}</span>
+                          <span className="block text-sm text-slate-500 truncate">
+                            ควรปรับ: {weakest.label}{r.appliedRules.length > 0 ? ` · ${r.appliedRules.join(', ')}` : ''}
+                          </span>
+                        </span>
+                        <span className={`hidden sm:inline-flex shrink-0 rounded-md px-2 py-0.5 text-xs font-medium ${LEVEL_TEXT.high.tone.bg} ${LEVEL_TEXT.high.tone.text}`}>{LEVEL_TEXT.high.title}</span>
+                        <ChevronRight className="w-4 h-4 shrink-0 text-slate-300" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            {watch.length > 5 && (
+              <button type="button" onClick={() => navigate('/instructor/analytics')}
+                className="w-full border-t border-slate-100 px-6 py-3 text-sm font-medium text-brand-700 hover:bg-slate-50">
+                ดูทั้งหมด {watch.length} คนในหน้า Learning Analytics
+              </button>
+            )}
+          </div>
+        );
+      })()}
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">สถานะโครงงาน</h2>
           <div className="h-64">
             <DonutChart data={projectStatusData.map((d: any) => ({ name: d.status, value: d.count, color: d.color }))} />
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">ความก้าวหน้าโครงงาน</h2>
           <div className="h-64">
             <BarChartComponent 
@@ -140,7 +198,7 @@ const InstructorDashboard = () => {
               bars={[
                 { key: '0-25%', name: '0-25%', color: '#ef4444' },
                 { key: '26-50%', name: '26-50%', color: '#f97316' },
-                { key: '51-75%', name: '51-75%', color: '#3b82f6' },
+                { key: '51-75%', name: '51-75%', color: 'var(--brand-500)' },
                 { key: '76-100%', name: '76-100%', color: '#22c55e' }
               ]} 
             />
@@ -149,13 +207,13 @@ const InstructorDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">แนวโน้มคะแนนเฉลี่ยรายสัปดาห์</h2>
           <div className="h-64">
-            <LineChartComponent data={weeklyAverageData} xKey="week" lines={[{ key: 'average', name: 'คะแนนเฉลี่ย', color: '#3B82F6' }]} />
+            <LineChartComponent data={weeklyAverageData} xKey="week" lines={[{ key: 'average', name: 'คะแนนเฉลี่ย', color: 'var(--brand-500)' }]} />
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">การกระจายความเสี่ยง</h2>
           <div className="h-64">
             <DonutChart data={riskDistributionData.map((d: any) => ({ name: d.level, value: d.count, color: d.color }))} />
@@ -163,7 +221,7 @@ const InstructorDashboard = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 overflow-hidden">
         <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-lg font-semibold text-gray-800">รายการโครงงานนักศึกษา</h2>
           <div className="relative">
@@ -172,7 +230,7 @@ const InstructorDashboard = () => {
               placeholder="ค้นหารหัสนักศึกษา, ชื่อ, โครงงาน..." 
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500 w-full sm:w-64"
+              className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-brand-500 w-full sm:w-64"
             />
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
           </div>
@@ -181,7 +239,7 @@ const InstructorDashboard = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-100">
+              <tr className="bg-brand-50/60 text-slate-500 text-sm border-b border-brand-100">
                 <th className="p-4 font-medium">ลำดับ</th>
                 <th className="p-4 font-medium">รหัสนักศึกษา</th>
                 <th className="p-4 font-medium">ชื่อ-สกุล</th>
@@ -195,7 +253,7 @@ const InstructorDashboard = () => {
             </thead>
             <tbody>
               {currentData.length > 0 ? currentData.map((item, index) => (
-                <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <tr key={item.id} className="border-b border-gray-50 hover:bg-brand-50/50 transition-colors">
                   <td className="p-4 text-sm text-gray-600">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td className="p-4 text-sm font-medium text-gray-800">{item.studentId}</td>
                   <td className="p-4 text-sm text-gray-600">{item.studentName}</td>
@@ -221,7 +279,7 @@ const InstructorDashboard = () => {
                   <td className="p-4 text-center">
                     <button 
                       onClick={() => navigate(`/student/${item.studentId}`)}
-                      className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                       title="ดูรายละเอียด"
                     >
                       <Eye className="w-5 h-5" />
@@ -248,7 +306,7 @@ const InstructorDashboard = () => {
               <button 
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-brand-50/50"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -258,7 +316,7 @@ const InstructorDashboard = () => {
               <button 
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-1 rounded-lg border border-gray-200 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-brand-50/50"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>

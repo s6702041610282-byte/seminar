@@ -261,7 +261,7 @@ for (let i = 0; i < 32; i++) {
   const studentId = `s${String(6501000 + i + 1)}`;
   const profile = allProfiles[i];
   const advisorIdx = i % instructors.length;
-  const group = i < 16 ? 'กลุ่ม A' : 'กลุ่ม B';
+  const group = i < 16 ? 'CED' : 'TCT';
 
   // Create student
   students.push({

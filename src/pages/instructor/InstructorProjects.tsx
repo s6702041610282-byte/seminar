@@ -5,7 +5,7 @@ import { projects, students } from '../../data/mockData';
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string }> = {
   completed: { label: 'เสร็จสิ้น', bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-l-emerald-500' },
-  submitted: { label: 'ส่งเล่มแล้ว', bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-l-blue-500' },
+  submitted: { label: 'ส่งเล่มแล้ว', bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-l-brand-500' },
   in_progress: { label: 'กำลังดำเนินการ', bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-l-amber-500' },
   revision: { label: 'แก้ไข', bg: 'bg-red-50', text: 'text-red-700', border: 'border-l-red-500' },
 };
@@ -39,20 +39,20 @@ const InstructorProjects: React.FC = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto font-sans space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-[#063B78]">โครงงานนักศึกษา</h1>
-        <p className="text-gray-500 mt-1">รายการโครงงานทั้งหมดที่ดูแล</p>
+      <div className="page-hero">
+        <h1 className="page-hero-title">โครงงานนักศึกษา</h1>
+        <p className="page-hero-sub">รายการโครงงานทั้งหมดที่ดูแล</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { icon: BookOpen, label: 'จำนวนโครงงานทั้งหมด', value: summary.total, color: 'bg-blue-600' },
+          { icon: BookOpen, label: 'จำนวนโครงงานทั้งหมด', value: summary.total, color: 'bg-brand-600' },
           { icon: Loader, label: 'กำลังดำเนินการ', value: summary.inProgress, color: 'bg-amber-500' },
-          { icon: Send, label: 'ส่งเล่มแล้ว', value: summary.submitted, color: 'bg-indigo-500' },
+          { icon: Send, label: 'ส่งเล่มแล้ว', value: summary.submitted, color: 'bg-brand-500' },
           { icon: CheckCircle2, label: 'เสร็จสิ้น', value: summary.completed, color: 'bg-emerald-600' },
         ].map((card, idx) => (
-          <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+          <div key={idx} className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-5">
             <div className="flex items-center gap-3">
               <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${card.color}`}>
                 <card.icon className="w-5 h-5 text-white" />
@@ -67,21 +67,21 @@ const InstructorProjects: React.FC = () => {
       </div>
 
       {/* Search & Filter */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <div className="bg-white rounded-2xl shadow-card border border-slate-200/70 p-4">
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
               placeholder="ค้นหาชื่อโครงงาน, ชื่อนักศึกษา..."
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 focus:border-[#063B78] transition-all"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-700 transition-all"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="flex gap-2">
             <select
-              className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -92,7 +92,7 @@ const InstructorProjects: React.FC = () => {
               <option value="revision">แก้ไข</option>
             </select>
             <select
-              className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#063B78]/30 text-sm"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
               value={groupFilter}
               onChange={(e) => setGroupFilter(e.target.value)}
             >
@@ -117,7 +117,7 @@ const InstructorProjects: React.FC = () => {
           return (
             <div
               key={project.id}
-              className={`bg-white rounded-xl shadow-sm border border-gray-100 border-l-4 ${cfg.border} overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col`}
+              className={`bg-white rounded-2xl shadow-card border border-slate-200/70 border-l-4 ${cfg.border} overflow-hidden transition-all duration-200 flex flex-col`}
             >
               <div className="p-5 flex-1 flex flex-col">
                 {/* Status & Group badges */}
@@ -162,7 +162,7 @@ const InstructorProjects: React.FC = () => {
                     <div
                       className={`h-2 rounded-full transition-all duration-500 ${
                         project.progress >= 80 ? 'bg-emerald-500' :
-                        project.progress >= 40 ? 'bg-blue-500' : 'bg-amber-500'
+                        project.progress >= 40 ? 'bg-brand-500' : 'bg-amber-500'
                       }`}
                       style={{ width: `${project.progress}%` }}
                     />
@@ -174,7 +174,7 @@ const InstructorProjects: React.FC = () => {
               <div className="px-5 py-3 bg-gray-50 border-t border-gray-100">
                 <button
                   onClick={() => navigate(`/instructor/students/${project.studentId}`)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-[#063B78] hover:bg-[#063B78]/5 rounded-lg transition-colors"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-700/5 rounded-lg transition-colors"
                 >
                   <Eye className="w-4 h-4" />
                   ดูรายละเอียด
